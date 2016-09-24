@@ -216,11 +216,8 @@ var GiftedListView = React.createClass({
     this.props.onFetch(this._getPage(), this._postRefresh, {firstLoad: true, search: this.props.search});
   },
 
-  componentWillReceiveProps() {
-    if (this.props.forceUpdate) {
-      /*this.setState({
-        isRefreshing: true,
-      });*/
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.forceUpdate) {
       this._setPage(1);
       this.props.onFetch(this._getPage(), this._postRefresh, {search: this.props.search});
     }
@@ -342,7 +339,7 @@ var GiftedListView = React.createClass({
         renderHeader={this.headerView}
         renderFooter={this._renderPaginationView}
         renderSeparator={this.renderSeparator}
-
+        enableEmptySections={true}
         automaticallyAdjustContentInsets={false}
         scrollEnabled={this.props.scrollEnabled}
         canCancelContentTouches={true}
