@@ -50,7 +50,7 @@ var GiftedListView = React.createClass({
       scrollEnabled: true,
       withSections: false,
       onFetch(page, callback, options) { callback([]); },
-
+      search: undefined,
       paginationFetchingView: null,
       paginationAllLoadedView: null,
       paginationWaitingView: null,
@@ -217,13 +217,8 @@ var GiftedListView = React.createClass({
   },
 
   componentWillReceiveProps() {
-    if (this.props.forceUpdate) {
-      this.setState({
-        isRefreshing: true,
-      });
-      this._setPage(1);
-      this.props.onFetch(this._getPage(), this._postRefresh, {search: this.props.search});
-    }
+    this._setPage(1);
+    this.props.onFetch(this._getPage(), this._postRefresh, {search: this.props.search});
   },
 
   setNativeProps(props) {
