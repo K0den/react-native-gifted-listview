@@ -213,7 +213,7 @@ var GiftedListView = React.createClass({
   },
 
   componentDidMount() {
-    this.props.onFetch(this._getPage(), this._postRefresh, {firstLoad: true});
+    this.props.onFetch(this._getPage(), this._postRefresh, {firstLoad: true, search: this.props.search});
   },
 
   componentWillReceiveProps() {
@@ -222,7 +222,7 @@ var GiftedListView = React.createClass({
         isRefreshing: true,
       });
       this._setPage(1);
-      this.props.onFetch(this._getPage(), this._postRefresh, {});
+      this.props.onFetch(this._getPage(), this._postRefresh, {search: this.props.search});
     }
   },
 
@@ -231,10 +231,10 @@ var GiftedListView = React.createClass({
   },
 
   _refresh() {
-    this._onRefresh({external: true});
+    this._onRefresh({external: true, search: this.props.search});
   },
 
-  _onRefresh(options = {}) {
+  _onRefresh(options = {search: this.props.search}) {
     if (this.isMounted()) {
       this.setState({
         isRefreshing: true,
@@ -257,7 +257,7 @@ var GiftedListView = React.createClass({
       this.setState({
         paginationStatus: 'fetching',
       });
-      this.props.onFetch(this._getPage() + 1, this._postPaginate, {});
+      this.props.onFetch(this._getPage() + 1, this._postPaginate, {search: this.props.search});
     }
   },
 
